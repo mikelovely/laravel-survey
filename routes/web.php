@@ -18,3 +18,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::group(['prefix' => 'admins', 'middleware' => ['web', 'auth']], function () {
+    Route::resource('surveys', 'Admins\SurveyController');
+    Route::resource('surveys.groups', 'Admins\GroupController');
+    Route::resource('surveys.groups.questions', 'Admins\QuestionController');
+    Route::resource('surveys.groups.questions.answers', 'Admins\AnswerController');
+});
