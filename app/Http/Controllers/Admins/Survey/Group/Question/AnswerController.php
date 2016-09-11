@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admins;
+namespace App\Http\Controllers\Admins\Survey\Group\Question;
 
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class GroupController extends Controller
+class AnswerController extends Controller
 {
     /**
      * Display a listing of the resource.
