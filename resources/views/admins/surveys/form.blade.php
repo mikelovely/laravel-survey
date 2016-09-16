@@ -66,12 +66,14 @@
         @include('components.forms.input.check_box', [
             'errors' => $errors,
             'field' => 'allow_registration',
+            'value' => $survey->allow_registration,
         ])
     </div>
     <div class="form-group{{ $errors->has('anonymized') ? ' has-error' : '' }}">
         @include('components.forms.input.check_box', [
             'errors' => $errors,
             'field' => 'anonymized',
+            'value' => $survey->anonymized,
         ])
     </div>
     <div class="form-group{{ $errors->has('starts_at') ? ' has-error' : '' }}">
