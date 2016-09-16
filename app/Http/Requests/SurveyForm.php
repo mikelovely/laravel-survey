@@ -7,6 +7,12 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class SurveyForm extends FormRequest
 {
+    private $toggable = [
+        'active',
+        'allow_registration',
+        'anonymized',
+    ];
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -25,7 +31,7 @@ class SurveyForm extends FormRequest
     public function rules()
     {
         return [
-            'slug' => 'required|alpha_dash|string|unique:surveys',
+            'slug' => 'required|alpha_dash|string',
             'title' => 'required|string',
             'description' => 'required|string',
             'welcome_text' => 'required',
@@ -40,8 +46,39 @@ class SurveyForm extends FormRequest
         ];
     }
 
+    /**
+     * Validate request
+     *
+     * @return validate()
+     */
+    public function validate()
+    {
+        return parent::validate();
+    }
+
+    /**
+     * Update for PATCH method
+     */
+    public function update(Survey $survey)
+    {
+        foreach ($survey->getFillable() as $key) {
+            if($this->input($key)) {
+                $survey->$key = $this->input($key);
+            }
+
+            if(!$this->input($key) && in_array($key, $this->toggable)) {
+                $survey->$key = 0;
+            }
+        }
+
+        $survey->save();
+    }
+
+    /**
+     * Save a new survey
+     */
     public function persist()
     {
-        $post = Survey::create($this->all());
+        Survey::create($this->all());
     }
 }

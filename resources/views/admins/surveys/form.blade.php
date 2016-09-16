@@ -1,5 +1,11 @@
-<form action="{{ route('surveys.store') }}" method="POST">
+<form action="{{ $url }}" method="POST">
+    
+    @if ($method == 'patch')
+        <input type="hidden" name="_method" value="PATCH">
+    @endif
+    
     {{ csrf_field() }}
+
     <div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
         @include('components.forms.input.regular_text_box', [
             'errors' => $errors,
