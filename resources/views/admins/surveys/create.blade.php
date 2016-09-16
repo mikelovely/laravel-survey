@@ -8,7 +8,7 @@
             </div>
             <div class="panel-body">
                 @include('admins.surveys.form', [
-                    'url' => route('surveys.create', [$survey->id]),
+                    'url' => route('surveys.store', [$survey->id]),
                     'method' => 'post',
                 ])
             </div>
