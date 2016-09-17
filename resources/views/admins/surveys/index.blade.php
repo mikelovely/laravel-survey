@@ -15,11 +15,12 @@
 					  	<div class="panel-heading clearfix">
 					        <a class="btn btn-info" href="{{ route('surveys.show', [$survey->id]) }}">Show</a>
 					    	<a class="btn btn-info" href="{{ route('surveys.edit', [$survey->id]) }}">Edit</a>
-							<form action="{{ route('surveys.destroy', [$survey->id]) }}" class="pull-right" method="POST">
-                                {{ csrf_field() }}
-                                <input type="hidden" name="_method" value="DELETE">
-								<button type="submit" class="btn btn-info">Delete</button>
-                            </form>
+                            @include('components.forms.delete_button', [
+						        'route' => 'surveys.destroy',
+						        'params' => [
+						        	$survey->id,
+						        ],
+						    ])
 					    </div>
 					  	<div class="panel-body">
 						    <h1>{{ $survey->title }}</h1>

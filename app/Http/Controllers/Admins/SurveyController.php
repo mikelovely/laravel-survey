@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Admins;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SurveyForm;
 use App\Models\Survey;
 
 class SurveyController extends Controller
@@ -29,7 +27,8 @@ class SurveyController extends Controller
      */
     public function create()
     {
-        //
+        return view('admins.surveys.create')
+            ->with('survey', new Survey);
     }
 
     /**
@@ -38,9 +37,11 @@ class SurveyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SurveyForm $request)
     {
-        //
+        $request->persist();
+
+        return redirect()->route('surveys.index');
     }
 
     /**
@@ -49,9 +50,11 @@ class SurveyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Survey $survey)
     {
-        //
+        return view('admins.surveys.show')
+            ->with('groups', $survey->groups)
+            ->with('survey', $survey);
     }
 
     /**
@@ -60,9 +63,10 @@ class SurveyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Survey $survey)
     {
-        //
+        return view('admins.surveys.edit')
+            ->with('survey', $survey);
     }
 
     /**
@@ -72,9 +76,11 @@ class SurveyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SurveyForm $request, Survey $survey)
     {
-        //
+        $request->update($survey);
+
+        return redirect()->back();
     }
 
     /**
@@ -83,8 +89,10 @@ class SurveyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Survey $survey)
     {
-        //
+        $survey->delete();
+
+        return redirect()->route('surveys.index');
     }
 }
