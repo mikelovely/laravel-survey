@@ -10,6 +10,7 @@
                 @include('admins.surveys.form', [
                     'url' => route('surveys.store', [$survey->id]),
                     'method' => 'post',
+                    'button' => 'Create',
                 ])
             </div>
         </div>

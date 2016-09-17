@@ -10,6 +10,7 @@
                 @include('admins.surveys.form', [
                     'url' => route('surveys.update', [$survey->id]),
                     'method' => 'patch',
+                    'button' => 'Update',
                 ])
             </div>
         </div>
