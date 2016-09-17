@@ -39,8 +39,8 @@
 				@foreach ($groups as $group)
 					<div class="panel panel-default">
 					  	<div class="panel-heading clearfix">
-					        <a class="btn btn-small btn-success" href="{{ route('surveys.show', [$survey->id]) }}">Show</a>
-							<a class="btn btn-small btn-info" href="{{ route('surveys.edit', [$survey->id]) }}">Edit</a>
+					        <a class="btn btn-small btn-success" href="{{ route('surveys.groups.show', [$survey->id, $group->id]) }}">Show</a>
+							<a class="btn btn-small btn-info" href="{{ route('surveys.groups.edit', [$survey->id, $group->id]) }}">Edit</a>
 							@include('components.forms.delete_button', [
 						        'route' => 'surveys.groups.destroy',
 						        'params' => [
@@ -56,6 +56,7 @@
 							<a class="btn btn-small btn-info" href="{{ route('surveys.groups.questions.index', [$survey->id, $group->id]) }}">Manage</a>
 					  	</div>
 					  	<div class="panel-footer">
+					  		<span class="label label-success">Order: {{ $group->order }}</span>
 					  	</div>
 					</div>
 			    @endforeach
