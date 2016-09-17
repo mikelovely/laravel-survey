@@ -21,21 +21,21 @@
         ])
     </div>
     <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-        @include('components.forms.input.regular_text_box', [
+        @include('components.forms.input.textarea', [
             'errors' => $errors,
             'field' => 'description',
             'resource' => $survey->description,
         ])
     </div>
     <div class="form-group{{ $errors->has('welcome_text') ? ' has-error' : '' }}">
-        @include('components.forms.input.regular_text_box', [
+        @include('components.forms.input.textarea', [
             'errors' => $errors,
             'field' => 'welcome_text',
             'resource' => $survey->welcome_text,
         ])
     </div>
     <div class="form-group{{ $errors->has('end_text') ? ' has-error' : '' }}">
-        @include('components.forms.input.regular_text_box', [
+        @include('components.forms.input.textarea', [
             'errors' => $errors,
             'field' => 'end_text',
             'resource' => $survey->end_text,
