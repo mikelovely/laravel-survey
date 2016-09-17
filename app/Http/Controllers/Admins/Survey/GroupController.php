@@ -83,9 +83,11 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GroupForm $request, Survey $survey, Group $group)
     {
-        //
+        $request->update($survey, $group);
+
+        return redirect()->back();
     }
 
     /**
@@ -94,8 +96,10 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Survey $survey, Group $group)
     {
-        //
+        $group->delete();
+
+        return redirect()->route('surveys.groups.index', [$survey->id]);
     }
 }
