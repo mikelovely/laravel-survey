@@ -46,7 +46,7 @@ class GroupForm extends FormRequest
     /**
      * Update for PATCH method
      */
-    public function update(Group $group)
+    public function update(Survey $survey, Group $group)
     {
         foreach ($group->getFillable() as $key) {
             if($this->input($key)) {
