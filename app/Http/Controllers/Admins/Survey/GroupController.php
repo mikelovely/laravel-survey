@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admins\Survey;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\GroupForm;
+use App\Models\Group;
+use App\Models\Survey;
 
 class GroupController extends Controller
 {
@@ -14,9 +14,13 @@ class GroupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Survey $survey)
     {
-        //
+        $groups = $survey->groups;
+
+        return view('admins.surveys.groups.index')
+            ->with('survey', $survey)
+            ->with('groups', $groups);
     }
 
     /**
@@ -24,9 +28,11 @@ class GroupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Survey $survey)
     {
-        //
+        return view('admins.surveys.groups.create')
+            ->with('survey', $survey)
+            ->with('group', new Group);
     }
 
     /**
@@ -35,9 +41,11 @@ class GroupController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Survey $survey, GroupForm $request)
     {
-        //
+        $request->persist($survey);
+
+        return redirect()->route('surveys.groups.index', [$survey->id]);
     }
 
     /**
@@ -46,9 +54,13 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Survey $survey, Group $group)
     {
-        //
+        $group = $survey->groups()->where('groups.id', $group->id)->first();
+        
+        return view('admins.surveys.groups.show')
+            ->with('survey', $survey)
+            ->with('group', $group);
     }
 
     /**
@@ -57,9 +69,11 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Survey $survey, Group $group)
     {
-        //
+        return view('admins.surveys.groups.edit')
+            ->with('survey', $survey)
+            ->with('group', $group);
     }
 
     /**
