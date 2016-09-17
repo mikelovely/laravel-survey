@@ -77,19 +77,19 @@
         ])
     </div>
     <div class="form-group{{ $errors->has('starts_at') ? ' has-error' : '' }}">
-        @include('components.forms.input.regular_text_box', [
+        @include('components.forms.input.datepicker', [
             'errors' => $errors,
             'field' => 'starts_at',
             'resource' => $survey->starts_at,
         ])
     </div>
     <div class="form-group{{ $errors->has('expires_at') ? ' has-error' : '' }}">
-        @include('components.forms.input.regular_text_box', [
+        @include('components.forms.input.datepicker', [
             'errors' => $errors,
             'field' => 'expires_at',
             'resource' => $survey->expires_at,
         ])
-    </div>
+    </div>    
 
     <div class="form-group">
         <button type="submit" class="btn btn-primary">{{ $button }}</button>
