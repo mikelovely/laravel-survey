@@ -21,6 +21,22 @@ class Question extends Model
 
     protected $dates = ['deleted_at'];
 
+    public static $question_types = [
+        'choice',
+        'list_dropdown',
+        'list_radio',
+        'array',
+        'date_time',
+        'gender',
+        'numerical',
+        'boilerplate',
+        'yes_no',
+        'huge_free_text',
+        'long_free_text',
+        'short_free_text',
+        'multiple_choice',
+    ];
+
     public function group()
     {
         return $this->belongsTo('App\Models\Group');

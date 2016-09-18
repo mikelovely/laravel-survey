@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers\Admins\Survey\Group;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\QuestionForm;
+use App\Models\Group;
+use App\Models\Question;
+use App\Models\Survey;
 
 class QuestionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Survey $survey, Group $group)
     {
-        //
+        $questions = $group->questions;
+
+        return view('admins.surveys.groups.questions.index')
+            ->with('survey', $survey)
+            ->with('group', $group)
+            ->with('questions', $questions);
     }
 
     /**
@@ -24,9 +25,12 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Survey $survey, Group $group)
     {
-        //
+        return view('admins.surveys.groups.questions.create')
+            ->with('survey', $survey)
+            ->with('group', $group)
+            ->with('question', new Question);
     }
 
     /**
@@ -35,9 +39,11 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Survey $survey, Group $group, QuestionForm $request)
     {
-        //
+        $request->persist($survey, $group);
+
+        return redirect()->route('surveys.groups.questions.index', [$survey->id, $group->id]);
     }
 
     /**
@@ -46,9 +52,14 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Survey $survey, Group $group, Question $question)
     {
-        //
+        $question = $survey->questions()->where('questions.id', $question->id)->first();
+
+        return view('admins.surveys.groups.questions.show')
+            ->with('survey', $survey)
+            ->with('group', $group)
+            ->with('question', $question);
     }
 
     /**
@@ -57,9 +68,12 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Survey $survey, Group $group, Question $question)
     {
-        //
+        return view('admins.surveys.groups.questions.edit')
+            ->with('survey', $survey)
+            ->with('group', $group)
+            ->with('question', $question);
     }
 
     /**
@@ -69,9 +83,11 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(QuestionForm $request, Survey $survey, Group $group, Question $question)
     {
-        //
+        $request->update($survey, $group, $question);
+
+        return redirect()->back();
     }
 
     /**
@@ -80,8 +96,10 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Survey $survey, Group $group, Question $question)
     {
-        //
+        $question->delete();
+
+        return redirect()->route('surveys.groups.questions.index', [$survey->id, $group->id]);
     }
 }
