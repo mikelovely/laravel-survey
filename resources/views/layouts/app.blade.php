@@ -81,12 +81,53 @@
     @yield('content')
 
     <!-- Scripts -->
-    <script src="/js/app.js"></script>
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.15/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script>
-        $(function() {
-            $( ".datepicker" ).datepicker();
+        new Vue({
+            el: '.todo-list',
+            data: {
+                item: '',
+                items: [],
+            },
+            methods: {
+                addItem: function () {
+                    var item = {
+                        id: Date.now(),
+                        answer_text: this.item,
+                    };
+
+                    this.items.push(item);
+
+                    // api call to store the new item
+                    $.ajax({
+                        url: '/admins/surveys/1/groups/3/questions/33/answers',
+                        type: 'post',
+                        cache: false,
+                        data: {
+                            answer_text: this.item
+                        }
+                    });
+
+                    this.item = '';
+                },
+                removeItem: function (item) {
+                    var newItems = this.items.filter(function (i) {
+                        return item.id !== i.id;
+                    });
+
+                    this.items = newItems;
+                }
+            },
+            ready: function () {
+                $.ajax({
+                    url: '/admins/get-em-all',
+                    type: 'get',
+                    cache: false
+                }).success(function (data) {
+                    this.items = data;
+                }.bind(this));
+            }
         });
     </script>
 </body>
