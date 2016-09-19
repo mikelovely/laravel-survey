@@ -91,17 +91,17 @@
                 items: [],
             },
             methods: {
-                addItem: function () {
+                addItem: function (survey, group, question) {
                     var item = {
                         id: Date.now(),
                         answer_text: this.item,
+                        temporary: true
                     };
 
                     this.items.push(item);
 
-                    // api call to store the new item
                     $.ajax({
-                        url: '/admins/surveys/1/groups/3/questions/33/answers',
+                        url: '/admins/surveys/' + survey + '/groups/' + group + '/questions/' + question + '/answers',
                         type: 'post',
                         cache: false,
                         data: {
@@ -121,7 +121,7 @@
             },
             ready: function () {
                 $.ajax({
-                    url: '/admins/get-em-all',
+                    url: '/admins/get-all',
                     type: 'get',
                     cache: false
                 }).success(function (data) {

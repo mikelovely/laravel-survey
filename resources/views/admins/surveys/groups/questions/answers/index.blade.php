@@ -9,53 +9,35 @@
 		</div>
 		<hr>
 		<div class="row">
-		    <div class="col-md-12">
-		    	<table class="table">
-					<thead>
-						<tr>
-							<th>#</th>
-							<th>Code</th>
-							<th>Text</th>
-							<th>Order</th>
-							<th>Visable</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach ($answers as $answer)
-							<tr>
-		    					<td>{{ $answer->value }}</td>
-		    					<td>{{ $answer->code }}</td>
-							    <td>{{ $answer->answer_text }}</td>
-		    					<td>{{ $answer->order }}</td>
-		    					<td>{{ $answer->visable }}</td>
-						    	<td>
-							    	@include('components.forms.delete_button', [
-			                            'route' => 'surveys.groups.questions.answers.destroy',
-			                            'params' => [
-			                                $survey->id,
-			                                $group->id,
-			                                $question->id,
-			                                $answer->id,
-			                            ],
-			                        ])
-								</td>
-	    					</tr>
-					    @endforeach
-					</tbody>
-				</table>
-
-
-				<div class="todo-list">
-		            <p v-if="!items.length">No items</p>
-		            <ul v-if="items.length">
-		                <li v-for="item in items">@{{ item.answer_text }} - <a href="#" v-on:click="removeItem(item)">Remove</a></li>
-		            </ul>
-		            <input type="text" v-model="item">
-		            <input type="submit" value="Add item" v-on:click="addItem">
-		        </div>
-
-
+		    <div class="col-md-12 todo-list">
+		    	<p v-if="!items.length">No items</p>
+		    	<table class="table" v-if="items.length">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Text</th>
+                            <th>Order</th>
+                            <th>Visable</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+		                <tr v-for="item in items">
+		                	<td>@{{ item.code }}</td>
+		                	<td>@{{ item.answer_text }}</td>
+		                	<td>@{{ item.order }}</td>
+		                	<td>@{{ item.visable }}</td>
+		                	<td><a href="#" v-on:click="removeItem(item)">Remove</a></td>
+		                </tr>
+		                <tr>
+		                	<td></td>
+		                	<td><input type="text" v-model="item"></td>
+		                	<td></td>
+		                	<td></td>
+			    			<td><input type="submit" value="Add item" v-on:click="addItem({{ $survey->id }}, {{ $group->id }}, {{ $question->id }})"></td>
+		                </tr>
+                    </tbody>
+                </table>
 	    	</div>
 		</div>
     </div>

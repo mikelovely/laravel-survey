@@ -12,10 +12,10 @@ use Illuminate\Http\Request;
 
 class AnswerController extends Controller
 {
-    public function getEmAll()
+    public function getAll()
     {
-        $answers = Answer::where('question_id', 33);
-        
+        $answers = Answer::where('question_id', '33')->get();
+
         return response()->json($answers);
     }
 
@@ -27,40 +27,6 @@ class AnswerController extends Controller
     public function index(Survey $survey, Group $group, Question $question)
     {
         $answers = $question->answers;
-
-        // return view('admins.surveys.groups.questions.answers.index')
-        //     ->with('survey', $survey)
-        //     ->with('group', $group)
-        //     ->with('question', $question)
-        //     ->with('answers', $answers);
-
-        // $todos = $db->query("SELECT id, title FROM todos");
-
-        // if ($todos->rowCount() === 0) {
-        //     echo json_encode([]);
-        //     die();
-        // }
-
-        // return response()->->json($answers)
-
-
-        // return response(
-        //     view(
-        //         'admins.surveys.groups.questions.answers.index',
-        //         ['survey' => $survey],
-        //         ['group' => $group],
-        //         ['question' => $question],
-        //         ['answers' => $answers]
-        //     ),
-        //     200,
-        //     ['Content-Type' => 'application/json']
-        // );
-
-        // return response()->json([
-        //     'body' => view('admins.surveys.groups.questions.answers.index', compact('answers'))->render(),
-        //     'answers' => $answers,
-        // ]);
-
 
         return view('admins.surveys.groups.questions.answers.index')
             ->with('survey', $survey)
@@ -85,34 +51,14 @@ class AnswerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Survey $survey, Group $group, Question $question, Request $request)
     {
-        // validate somewhere else...
-        /*
-        if (!isset($_POST['title']) || empty(trim($_POST['title']))) {
-            http_response_code(400);
-            die();
-        }
-        return response('Hello World', 400)
-            ->header('Content-Type', 'text/plain');
-        */
-    
-
         $input = $request->input();
-        // $input['survey_id'] = $survey->id;
-        $input['question_id'] = 33;
-        Answer::create($input);
-        // return redirect()->back();
+        $input['question_id'] = $question->id;
 
-        // $request->input[]  todo = $db->prepare("INSERT INTO todos (title) VALUES (:title)");
-        // $todo->execute([
-        //     'title' => $_POST['title'],
-        // ]);
+        Answer::create($input);
 
         return response(200)->header('Content-Type', 'text/plain');
-        
-        // http_response_code(200);
-        // die();
     }
 
     /**
