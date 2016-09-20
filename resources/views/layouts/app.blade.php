@@ -96,7 +96,9 @@
                     var item = {
                         id: Date.now(),
                         code: this.code,
-                        answer_text: this.item,
+                        answer_text: this.answer_text,
+                        order: this.order,
+                        visable: this.visable,
                         temporary: true
                     };
 
@@ -108,19 +110,35 @@
                         cache: false,
                         data: {
                             code: this.code,
-                            answer_text: this.item
+                            answer_text: this.answer_text,
+                            order: this.order,
+                            visable: this.visable,
                         }
                     });
 
-                    this.item = '';
                     this.code = '';
+                    this.answer_text = '';
+                    this.order = '';
+                    this.visable = '';
                 },
                 removeItem: function (item) {
+
                     var newItems = this.items.filter(function (i) {
                         return item.id !== i.id;
                     });
 
                     this.items = newItems;
+
+                    if (!item.temporary) {
+                        $.ajax({
+                            url: '/admins/delete',
+                            type: 'delete',
+                            cache: false,
+                            data: {
+                                id: item.id
+                            }
+                        });
+                    }
                 }
             },
             ready: function () {

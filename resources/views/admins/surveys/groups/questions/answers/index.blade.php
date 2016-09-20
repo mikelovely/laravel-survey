@@ -3,12 +3,6 @@
 @section('content')
 	<div class="container">
 		<div class="row">
-		    <div class="col-md-12">
-		  		<a class="btn btn-info" href="{{ route('surveys.groups.questions.answers.create', [$survey->id, $group->id, $question->id]) }}">Create new answer</a>
-		  	</div>
-		</div>
-		<hr>
-		<div class="row">
 		    <div class="col-md-12 todo-list">
 		    	<p v-if="!items.length">No items</p>
 		    	<table class="table" v-if="items.length">
@@ -31,10 +25,16 @@
 		                </tr>
 		                <tr>
 		                	<td><input type="text" v-model="code"></td>
-		                	<td><input type="text" v-model="item"></td>
-		                	<td></td>
-		                	<td></td>
-			    			<td><input type="submit" value="Add item" v-on:click="addItem({{ $survey->id }}, {{ $group->id }}, {{ $question->id }})"></td>
+                            <td><input type="text" v-model="answer_text"></td>
+                            <td><input type="text" v-model="order"></td>
+		                	<td><input type="text" v-model="visable"></td>
+			    			<td>
+                                <input class="btn btn-info" type="submit" value="Add item" v-on:click="addItem(
+                                    {{ $survey->id }},
+                                    {{ $group->id }},
+                                    {{ $question->id }}
+                                )">
+                            </td>
 		                </tr>
                     </tbody>
                 </table>

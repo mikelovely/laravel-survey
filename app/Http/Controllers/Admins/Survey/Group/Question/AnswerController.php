@@ -21,6 +21,15 @@ class AnswerController extends Controller
         return response()->json($answers);
     }
 
+    public function delete(Request $request)
+    {
+        $id = $request->input('id');
+        $answer = Answer::find($id);
+        $answer->delete();
+
+        return response(200)->header('Content-Type', 'text/plain');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -103,22 +112,8 @@ class AnswerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function destroy($id)
-    // {
-    //     parse_str(file_get_contents('php://input'), $payload);
-
-    //     if (!isset($payload['id']) || empty(trim($payload['id']))) {
-    //         http_response_code(400);
-    //         die();
-    //     }
-
-    //     $todo = $db->prepare("DELETE FROM todos WHERE id = :id");
-
-    //     $todo->execute([
-    //         'id' => $payload['id'],
-    //     ]);
-
-    //     http_response_code(200);
-    //     die();
-    // }
+    public function destroy($id)
+    {
+        //
+    }
 }

@@ -25,4 +25,5 @@ Route::group(['prefix' => 'admins', 'middleware' => ['web', 'auth']], function (
     Route::resource('surveys.groups.questions', 'Admins\Survey\Group\QuestionController');
     Route::resource('surveys.groups.questions.answers', 'Admins\Survey\Group\Question\AnswerController');
     Route::get('/get-all', 'Admins\Survey\Group\Question\AnswerController@getAll');
+    Route::delete('/delete', 'Admins\Survey\Group\Question\AnswerController@delete');
 });
