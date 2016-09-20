@@ -89,6 +89,9 @@
             data: {
                 item: '',
                 code: '',
+                answer_text: '',
+                order: '',
+                visable: '',
                 items: [],
             },
             methods: {
