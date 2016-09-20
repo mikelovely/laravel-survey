@@ -12,9 +12,11 @@ use Illuminate\Http\Request;
 
 class AnswerController extends Controller
 {
-    public function getAll()
+    public function getAll(Request $request)
     {
-        $answers = Answer::where('question_id', '33')->get();
+        $question_id = $request->input('question_id');
+
+        $answers = Answer::where('question_id', $question_id)->get();
 
         return response()->json($answers);
     }
