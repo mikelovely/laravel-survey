@@ -30,7 +30,7 @@
 		                	<td><a href="#" v-on:click="removeItem(item)">Remove</a></td>
 		                </tr>
 		                <tr>
-		                	<td></td>
+		                	<td><input type="text" v-model="code"></td>
 		                	<td><input type="text" v-model="item"></td>
 		                	<td></td>
 		                	<td></td>

@@ -88,12 +88,14 @@
             el: '.todo-list',
             data: {
                 item: '',
+                code: '',
                 items: [],
             },
             methods: {
                 addItem: function (survey, group, question) {
                     var item = {
                         id: Date.now(),
+                        code: this.code,
                         answer_text: this.item,
                         temporary: true
                     };
@@ -105,11 +107,13 @@
                         type: 'post',
                         cache: false,
                         data: {
+                            code: this.code,
                             answer_text: this.item
                         }
                     });
 
                     this.item = '';
+                    this.code = '';
                 },
                 removeItem: function (item) {
                     var newItems = this.items.filter(function (i) {
