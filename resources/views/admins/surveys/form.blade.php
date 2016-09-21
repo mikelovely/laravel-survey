@@ -95,3 +95,7 @@
         <button type="submit" class="btn btn-primary">{{ $button }}</button>
     </div>
 </form>
+
+@section('scripts')
+    <script src="/js/date-picker.js"></script>
+@endsection
