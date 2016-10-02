@@ -61,8 +61,6 @@ new Vue({
     },
     ready: function () {
 
-
-
         // Get URL
         var url = window.location.href
 
