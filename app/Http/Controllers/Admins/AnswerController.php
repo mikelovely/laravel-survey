@@ -39,7 +39,7 @@ class AnswerController extends Controller
     {
         $answers = $question->answers;
 
-        return view('admins.surveys.groups.questions.answers.index')
+        return view('admins.answers.index')
             ->with('survey', $survey)
             ->with('group', $group)
             ->with('question', $question)
