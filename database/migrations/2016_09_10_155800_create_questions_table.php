@@ -20,8 +20,8 @@ class CreateQuestionsTable extends Migration
             $table->longText('title');
             $table->mediumText('description')->nullable();
             $table->string('type', 25)->nullable();
-            $table->integer('order');
-            $table->boolean('mandatory');
+            $table->integer('order')->nullable();
+            $table->boolean('mandatory')->default(false);
             $table->softDeletes();
             $table->timestamps();
             $table->foreign('group_id')->references('id')->on('groups');

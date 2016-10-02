@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admins\Survey\Group;
+namespace App\Http\Controllers\Admins;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\QuestionForm;
@@ -14,7 +14,7 @@ class QuestionController extends Controller
     {
         $questions = $group->questions;
 
-        return view('admins.surveys.groups.questions.index')
+        return view('admins.questions.index')
             ->with('survey', $survey)
             ->with('group', $group)
             ->with('questions', $questions);
@@ -27,7 +27,7 @@ class QuestionController extends Controller
      */
     public function create(Survey $survey, Group $group)
     {
-        return view('admins.surveys.groups.questions.create')
+        return view('admins.questions.create')
             ->with('survey', $survey)
             ->with('group', $group)
             ->with('question', new Question);
@@ -41,7 +41,14 @@ class QuestionController extends Controller
      */
     public function store(Survey $survey, Group $group, QuestionForm $request)
     {
-        $request->persist($survey, $group);
+        
+        $group->questions()->create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'type' => $request->type,
+            'order' => $request->order,
+            'mandatory' => $request->has('mandatory'),
+        ]);
 
         return redirect()->route('surveys.groups.questions.index', [$survey->id, $group->id]);
     }
@@ -56,7 +63,7 @@ class QuestionController extends Controller
     {
         $question = $survey->questions()->where('questions.id', $question->id)->first();
 
-        return view('admins.surveys.groups.questions.show')
+        return view('admins.questions.show')
             ->with('survey', $survey)
             ->with('group', $group)
             ->with('question', $question);
@@ -70,7 +77,7 @@ class QuestionController extends Controller
      */
     public function edit(Survey $survey, Group $group, Question $question)
     {
-        return view('admins.surveys.groups.questions.edit')
+        return view('admins.questions.edit')
             ->with('survey', $survey)
             ->with('group', $group)
             ->with('question', $question);
@@ -85,7 +92,13 @@ class QuestionController extends Controller
      */
     public function update(QuestionForm $request, Survey $survey, Group $group, Question $question)
     {
-        $request->update($survey, $group, $question);
+        $question->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'type' => $request->type,
+            'order' => $request->order,
+            'mandatory' => $request->has('mandatory'),
+        ]);
 
         return redirect()->back();
     }
