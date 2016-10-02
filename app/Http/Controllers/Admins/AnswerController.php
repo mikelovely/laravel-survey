@@ -59,10 +59,8 @@ class AnswerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Survey $survey, Group $group, Question $question, Request $request)
+    public function destroy(Survey $survey, Group $group, Question $question, Answer $answer)
     {
-        $id = $request->input('id');
-        $answer = Answer::find($id);
         $answer->delete();
 
         return response(200);

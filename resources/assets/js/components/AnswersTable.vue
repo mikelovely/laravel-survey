@@ -78,26 +78,24 @@
 
                 this.items.push(item);
 
-                $.ajax({
-                    url: this.storeAnswerRoute,
-                    type: 'post',
-                    cache: false,
-                    data: {
-                        value: this.value,
-                        code: this.code,
-                        answer_text: this.answer_text,
-                        order: this.order,
-                        visable: this.visable,
-                    }
+                return this.$http.post(this.storeAnswerRoute, {
+                    value: this.value,
+                    code: this.code,
+                    answer_text: this.answer_text,
+                    order: this.order,
+                    visable: this.visable,
+                }).then((response) => {
+                    this.value = '';
+                    this.code = '';
+                    this.answer_text = '';
+                    this.order = '';
+                    this.visable = '';
                 });
-
-                this.value = '';
-                this.code = '';
-                this.answer_text = '';
-                this.order = '';
-                this.visable = '';
             },
             destroy(item) {
+                if (!confirm('Are you sure you want to delete this answer option?')) {
+                    return;
+                }
 
                 var newItems = this.items.filter(function (i) {
                     return item.id !== i.id;
@@ -105,19 +103,9 @@
 
                 this.items = newItems;
 
-                if (!item.temporary) {
-                    $.ajax({
-                        url: '/admins/surveys/' + this.surveyId + '/groups/' + this.groupId + '/questions/' + this.questionId + '/answers/' + item.id,
-                        type: 'delete',
-                        cache: false,
-                        data: {
-                            id: item.id
-                        }
-                    });
-                }
+                this.$http.delete('/admins/surveys/' + this.surveyId + '/groups/' + this.groupId + '/questions/' + this.questionId + '/answers/' + item.id);
             }
         },
-        // like a "before" action?
         ready() {
             this.getAnswers()
         }
