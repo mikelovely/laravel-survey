@@ -41,7 +41,14 @@ class QuestionController extends Controller
      */
     public function store(Survey $survey, Group $group, QuestionForm $request)
     {
-        $request->persist($survey, $group);
+        
+        $group->questions()->create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'type' => $request->type,
+            'order' => $request->order,
+            'mandatory' => $request->has('mandatory'),
+        ]);
 
         return redirect()->route('surveys.groups.questions.index', [$survey->id, $group->id]);
     }
@@ -85,7 +92,13 @@ class QuestionController extends Controller
      */
     public function update(QuestionForm $request, Survey $survey, Group $group, Question $question)
     {
-        $request->update($survey, $group, $question);
+        $question->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'type' => $request->type,
+            'order' => $request->order,
+            'mandatory' => $request->has('mandatory'),
+        ]);
 
         return redirect()->back();
     }
