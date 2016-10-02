@@ -21,7 +21,7 @@ Route::get('/home', 'HomeController@index');
 
 Route::group(['prefix' => 'admins', 'middleware' => ['web', 'auth']], function () {
     Route::resource('surveys', 'Admins\SurveyController');
-    Route::resource('surveys.groups', 'Admins\Survey\GroupController');
-    Route::resource('surveys.groups.questions', 'Admins\Survey\Group\QuestionController');
-    Route::resource('surveys.groups.questions.answers', 'Admins\Survey\Group\Question\AnswerController');
+    Route::resource('surveys.groups', 'Admins\GroupController');
+    Route::resource('surveys.groups.questions', 'Admins\QuestionController');
+    Route::resource('surveys.groups.questions.answers', 'Admins\AnswerController');
 });

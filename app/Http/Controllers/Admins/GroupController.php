@@ -41,9 +41,14 @@ class GroupController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Survey $survey, GroupForm $request)
+    public function store(GroupForm $request, Survey $survey)
     {
-        $request->persist($survey);
+        $survey->groups()->create([
+            'slug' => $request->slug,
+            'title' => $request->title,
+            'description' => $request->description,
+            'order' => $request->order,
+        ]);
 
         return redirect()->route('surveys.groups.index', [$survey->id]);
     }
@@ -85,7 +90,12 @@ class GroupController extends Controller
      */
     public function update(GroupForm $request, Survey $survey, Group $group)
     {
-        $request->update($survey, $group);
+        $group->update([
+            'slug' => $request->slug,
+            'title' => $request->title,
+            'description' => $request->description,
+            'order' => $request->order,
+        ]);
 
         return redirect()->back();
     }

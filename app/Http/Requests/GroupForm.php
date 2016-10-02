@@ -32,38 +32,4 @@ class GroupForm extends FormRequest
             'order' => 'numeric',
         ];
     }
-
-    /**
-     * Validate request
-     *
-     * @return validate()
-     */
-    public function validate()
-    {
-        return parent::validate();
-    }
-
-    /**
-     * Update for PATCH method
-     */
-    public function update(Survey $survey, Group $group)
-    {
-        foreach ($group->getFillable() as $key) {
-            if($this->input($key)) {
-                $group->$key = $this->input($key);
-            }
-        }
-
-        $group->save();
-    }
-
-    /**
-     * Save a new group
-     */
-    public function persist(Survey $survey)
-    {
-        $input = $this->input();
-        $input['survey_id'] = $survey->id;
-        Group::create($input);
-    }
 }
