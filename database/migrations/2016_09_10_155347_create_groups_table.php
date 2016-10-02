@@ -19,7 +19,7 @@ class CreateGroupsTable extends Migration
             $table->string('slug')->unique();
             $table->longText('title');
             $table->mediumText('description')->nullable();
-            $table->integer('order');
+            $table->integer('order')->nullable();
             $table->softDeletes();
             $table->timestamps();
             $table->foreign('survey_id')->references('id')->on('surveys');

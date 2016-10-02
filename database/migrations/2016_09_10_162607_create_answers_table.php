@@ -20,7 +20,7 @@ class CreateAnswersTable extends Migration
             $table->string('code', 60);
             $table->string('answer_text', 255);
             $table->boolean('visable')->default(true);
-            $table->integer('order');
+            $table->integer('order')->nullable();
             $table->softDeletes();
             $table->timestamps();
             $table->foreign('question_id')->references('id')->on('questions');

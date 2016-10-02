@@ -23,9 +23,9 @@ class CreateSurveysTable extends Migration
             $table->string('end_url')->nullable();
             $table->string('admin_name', 100);
             $table->string('admin_email');
-            $table->boolean('allow_registration');
-            $table->boolean('active');
-            $table->boolean('anonymized');
+            $table->boolean('allow_registration')->default(false);
+            $table->boolean('active')->default(false);
+            $table->boolean('anonymized')->default(false);
             $table->dateTime('starts_at')->nullable();
             $table->dateTime('expires_at')->nullable();
             $table->softDeletes();
