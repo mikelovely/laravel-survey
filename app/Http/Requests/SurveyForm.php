@@ -2,17 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Survey;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SurveyForm extends FormRequest
 {
-    private $toggable = [
-        'active',
-        'allow_registration',
-        'anonymized',
-    ];
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -44,41 +37,5 @@ class SurveyForm extends FormRequest
             'starts_at' => 'required|date',
             'expires_at' => 'required|date',
         ];
-    }
-
-    /**
-     * Validate request
-     *
-     * @return validate()
-     */
-    public function validate()
-    {
-        return parent::validate();
-    }
-
-    /**
-     * Update for PATCH method
-     */
-    public function update(Survey $survey)
-    {
-        foreach ($survey->getFillable() as $key) {
-            if($this->input($key)) {
-                $survey->$key = $this->input($key);
-            }
-
-            if(!$this->input($key) && in_array($key, $this->toggable)) {
-                $survey->$key = 0;
-            }
-        }
-
-        $survey->save();
-    }
-
-    /**
-     * Save a new survey
-     */
-    public function persist()
-    {
-        Survey::create($this->all());
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admins\Survey\Group\Question;
+namespace App\Http\Controllers\Admins;
 
 use Illuminate\Http\Request;
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admins;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SurveyForm;
 use App\Models\Survey;
+use Carbon\Carbon;
 
 class SurveyController extends Controller
 {
@@ -39,7 +40,20 @@ class SurveyController extends Controller
      */
     public function store(SurveyForm $request)
     {
-        $request->persist();
+        Survey::create([
+            'slug' => $request->slug,
+            'title' => $request->title,
+            'description' => $request->description,
+            'welcome_text' => $request->welcome_text,
+            'end_text' => $request->end_text,
+            'end_url' => $request->end_url,
+            'admin_name' => $request->admin_name,
+            'admin_email' => $request->admin_email,
+            'allow_registration' => $request->has('allow_registration'),
+            'anonymized' => $request->has('anonymized'),
+            'starts_at' => Carbon::createFromFormat('d-m-Y', $request->starts_at),
+            'expires_at' => Carbon::createFromFormat('d-m-Y', $request->expires_at),
+        ]);
 
         return redirect()->route('surveys.index');
     }
@@ -78,7 +92,20 @@ class SurveyController extends Controller
      */
     public function update(SurveyForm $request, Survey $survey)
     {
-        $request->update($survey);
+        $survey->update([
+            'slug' => $request->slug,
+            'title' => $request->title,
+            'description' => $request->description,
+            'welcome_text' => $request->welcome_text,
+            'end_text' => $request->end_text,
+            'end_url' => $request->end_url,
+            'admin_name' => $request->admin_name,
+            'admin_email' => $request->admin_email,
+            'allow_registration' => $request->has('allow_registration'),
+            'anonymized' => $request->has('anonymized'),
+            'starts_at' => Carbon::createFromFormat('d-m-Y', $request->starts_at),
+            'expires_at' => Carbon::createFromFormat('d-m-Y', $request->expires_at),
+        ]);
 
         return redirect()->back();
     }
