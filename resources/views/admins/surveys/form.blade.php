@@ -80,14 +80,14 @@
         @include('components.forms.input.datepicker', [
             'errors' => $errors,
             'field' => 'starts_at',
-            'resource' => $survey->starts_at,
+            'resource' => Carbon\Carbon::parse($survey->starts_at)->format('d-m-Y'),
         ])
     </div>
     <div class="form-group{{ $errors->has('expires_at') ? ' has-error' : '' }}">
         @include('components.forms.input.datepicker', [
             'errors' => $errors,
             'field' => 'expires_at',
-            'resource' => $survey->expires_at,
+            'resource' => Carbon\Carbon::parse($survey->expires_at)->format('d-m-Y'),
         ])
     </div>    
 
