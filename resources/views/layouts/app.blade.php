@@ -80,6 +80,7 @@
 
     @yield('content')
 
-    @yield('scripts')
+    <!-- Scripts -->
+    <script src="/js/app.js"></script>
 </body>
 </html>
