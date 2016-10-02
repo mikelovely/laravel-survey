@@ -1,7 +1,7 @@
 <form action="{{ $url }}" method="POST">
     
     @if ($method == 'patch')
-        <input type="hidden" name="_method" value="PATCH">
+        {{ method_field('PATCH') }}
     @endif
     
     {{ csrf_field() }}

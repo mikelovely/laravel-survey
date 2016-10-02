@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admins\Survey;
+namespace App\Http\Controllers\Admins;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GroupForm;
@@ -18,7 +18,7 @@ class GroupController extends Controller
     {
         $groups = $survey->groups;
 
-        return view('admins.surveys.groups.index')
+        return view('admins.groups.index')
             ->with('survey', $survey)
             ->with('groups', $groups);
     }
@@ -30,7 +30,7 @@ class GroupController extends Controller
      */
     public function create(Survey $survey)
     {
-        return view('admins.surveys.groups.create')
+        return view('admins.groups.create')
             ->with('survey', $survey)
             ->with('group', new Group);
     }
@@ -58,7 +58,7 @@ class GroupController extends Controller
     {
         $group = $survey->groups()->where('groups.id', $group->id)->first();
         
-        return view('admins.surveys.groups.show')
+        return view('admins.groups.show')
             ->with('survey', $survey)
             ->with('group', $group);
     }
@@ -71,7 +71,7 @@ class GroupController extends Controller
      */
     public function edit(Survey $survey, Group $group)
     {
-        return view('admins.surveys.groups.edit')
+        return view('admins.groups.edit')
             ->with('survey', $survey)
             ->with('group', $group);
     }
