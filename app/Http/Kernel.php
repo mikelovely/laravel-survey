@@ -54,5 +54,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'group' => \App\Http\Middleware\CheckGroupBelongsToSurvey::class,
         'question' => \App\Http\Middleware\CheckQuestionBelongsToGroup::class,
+        'answer' => \App\Http\Middleware\CheckAnswerBelongsToQuestion::class,
     ];
 }
