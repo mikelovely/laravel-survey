@@ -12,8 +12,8 @@ class QuestionController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('group', ['only' => ['edit', 'show', 'update', 'delete']]);
-        $this->middleware('question', ['only' => ['edit', 'show', 'update', 'delete']]);
+        $this->middleware('group');
+        $this->middleware('question');
     }
 
     public function index(Survey $survey, Group $group)

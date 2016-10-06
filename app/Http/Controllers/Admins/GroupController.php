@@ -11,7 +11,7 @@ class GroupController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('group', ['only' => ['edit', 'show', 'update', 'delete']]);
+        $this->middleware('group');
     }
     /**
      * Display a listing of the resource.

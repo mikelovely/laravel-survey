@@ -14,9 +14,8 @@ class AnswerController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('group', ['only' => ['edit', 'show', 'update', 'delete']]);
-        $this->middleware('question', ['only' => ['edit', 'show', 'update', 'delete']]);
-        $this->middleware('answer', ['only' => ['edit', 'show', 'update', 'delete']]);
+        $this->middleware('group');
+        $this->middleware('question');
     }
 
     /**
