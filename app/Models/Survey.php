@@ -36,4 +36,9 @@ class Survey extends Model
     {
         return $this->hasManyThrough('App\Models\Question', 'App\Models\Group');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User');
+    }
 }

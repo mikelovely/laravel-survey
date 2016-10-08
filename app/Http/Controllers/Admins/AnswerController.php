@@ -40,7 +40,7 @@ class AnswerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Survey $survey, Group $group, Question $question, Request $request)
+    public function store(Survey $survey, Group $group, Question $question, AnswerForm $request)
     {
         $question->answers()->create([
             'value'  => $request->value,
