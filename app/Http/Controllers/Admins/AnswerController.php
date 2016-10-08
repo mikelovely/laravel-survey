@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Admins;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Models\Answer;
+use App\Models\Group;
+use App\Models\Question;
+use App\Models\Survey;
+use Illuminate\Http\Request;
+use Request as RequestFacade;
 
 class AnswerController extends Controller
 {
@@ -14,19 +17,21 @@ class AnswerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Survey $survey, Group $group, Question $question)
     {
-        //
-    }
+        $answers = $question->answers;
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        if(RequestFacade::ajax()) {
+            return response()->json([
+                'data' => $answers
+            ], 200);
+        }
+
+        return view('admins.answers.index')
+            ->with('survey', $survey)
+            ->with('group', $group)
+            ->with('question', $question)
+            ->with('answers', $answers);
     }
 
     /**
@@ -35,43 +40,17 @@ class AnswerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Survey $survey, Group $group, Question $question, Request $request)
     {
-        //
-    }
+        $question->answers()->create([
+            'value'  => $request->value,
+            'code'  => $request->code,
+            'answer_text' => $request->answer_text,
+            'order'  => $request->order,
+            'visable' => $request->visable == 'true' ? true : false,
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        return response()->json(null, 200);
     }
 
     /**
@@ -80,8 +59,10 @@ class AnswerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Survey $survey, Group $group, Question $question, Answer $answer)
     {
-        //
+        $answer->delete();
+
+        return response(200);
     }
 }
