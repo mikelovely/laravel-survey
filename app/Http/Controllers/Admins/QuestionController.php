@@ -10,6 +10,12 @@ use App\Models\Survey;
 
 class QuestionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('group');
+        $this->middleware('question');
+    }
+
     public function index(Survey $survey, Group $group)
     {
         $questions = $group->questions;

@@ -12,6 +12,12 @@ use Request as RequestFacade;
 
 class AnswerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('group');
+        $this->middleware('question');
+    }
+
     /**
      * Display a listing of the resource.
      *

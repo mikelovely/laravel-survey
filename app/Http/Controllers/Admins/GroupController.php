@@ -9,6 +9,10 @@ use App\Models\Survey;
 
 class GroupController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('group');
+    }
     /**
      * Display a listing of the resource.
      *
