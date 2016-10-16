@@ -8,7 +8,10 @@
             </div>
             <div class="panel-body">
                 @include('admins.questions.form', [
-                    'url' => route('surveys.groups.questions.update', [$survey->id, $group->id, $question->id]),
+                    'url' => route('groups.questions.update', [
+                        $group->id,
+                        $question->id,
+                    ]),
                     'method' => 'patch',
                     'button' => 'Update',
                 ])

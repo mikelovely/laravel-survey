@@ -6,16 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\QuestionForm;
 use App\Models\Group;
 use App\Models\Question;
-use App\Models\Survey;
 
 class QuestionController extends Controller
 {
-    public function index(Survey $survey, Group $group)
+    public function index(Group $group)
     {
         $questions = $group->questions;
 
         return view('admins.questions.index')
-            ->with('survey', $survey)
+            ->with('survey', $group->survey()->firstOrFail())
             ->with('group', $group)
             ->with('questions', $questions);
     }
@@ -25,10 +24,10 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Survey $survey, Group $group)
+    public function create(Group $group)
     {
         return view('admins.questions.create')
-            ->with('survey', $survey)
+            ->with('survey', $group->survey()->firstOrFail())
             ->with('group', $group)
             ->with('question', new Question);
     }
@@ -39,9 +38,8 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Survey $survey, Group $group, QuestionForm $request)
+    public function store(Group $group, QuestionForm $request)
     {
-        
         $group->questions()->create([
             'title' => $request->title,
             'description' => $request->description,
@@ -50,7 +48,7 @@ class QuestionController extends Controller
             'mandatory' => $request->has('mandatory'),
         ]);
 
-        return redirect()->route('surveys.groups.questions.index', [$survey->id, $group->id]);
+        return redirect()->route('groups.questions.index', [$group->id]);
     }
 
     /**
@@ -59,12 +57,12 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Survey $survey, Group $group, Question $question)
+    public function show(Group $group, Question $question)
     {
-        $question = $survey->questions()->where('questions.id', $question->id)->first();
+        $question = $group->questions()->where('questions.id', $question->id)->firstOrFail();
 
         return view('admins.questions.show')
-            ->with('survey', $survey)
+            ->with('survey', $group->survey()->firstOrFail())
             ->with('group', $group)
             ->with('question', $question);
     }
@@ -75,10 +73,10 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Survey $survey, Group $group, Question $question)
+    public function edit(Group $group, Question $question)
     {
         return view('admins.questions.edit')
-            ->with('survey', $survey)
+            ->with('survey', $group->survey()->firstOrFail())
             ->with('group', $group)
             ->with('question', $question);
     }
@@ -90,7 +88,7 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(QuestionForm $request, Survey $survey, Group $group, Question $question)
+    public function update(Group $group, Question $question, QuestionForm $request)
     {
         $question->update([
             'title' => $request->title,
@@ -109,10 +107,10 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Survey $survey, Group $group, Question $question)
+    public function destroy(Group $group, Question $question)
     {
         $question->delete();
 
-        return redirect()->route('surveys.groups.questions.index', [$survey->id, $group->id]);
+        return redirect()->route('groups.questions.index', [$group->id]);
     }
 }
