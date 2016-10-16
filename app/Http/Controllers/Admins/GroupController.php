@@ -9,6 +9,13 @@ use App\Models\Survey;
 
 class GroupController extends Controller
 {
+    public function __construct()
+    {
+        // dd("est");
+        // to middleware or not to middleware?
+        // $this->middleware('group');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,6 +37,8 @@ class GroupController extends Controller
      */
     public function create(Survey $survey)
     {
+        $this->authorize('resource', $survey);
+
         return view('admins.groups.create')
             ->with('survey', $survey)
             ->with('group', new Group);
@@ -43,6 +52,8 @@ class GroupController extends Controller
      */
     public function store(GroupForm $request, Survey $survey)
     {
+        $this->authorize('resource', $survey);
+
         $survey->groups()->create([
             'slug' => $request->slug,
             'title' => $request->title,
@@ -61,7 +72,9 @@ class GroupController extends Controller
      */
     public function show(Survey $survey, Group $group)
     {
-        $group = $survey->groups()->where('groups.id', $group->id)->first();
+        $this->authorize('resource', $survey);
+
+        $group = $survey->groups()->where('groups.id', $group->id)->firstOrFail();
         
         return view('admins.groups.show')
             ->with('survey', $survey)
@@ -76,6 +89,8 @@ class GroupController extends Controller
      */
     public function edit(Survey $survey, Group $group)
     {
+        $this->authorize('resource', $survey);
+
         return view('admins.groups.edit')
             ->with('survey', $survey)
             ->with('group', $group);
@@ -90,6 +105,8 @@ class GroupController extends Controller
      */
     public function update(GroupForm $request, Survey $survey, Group $group)
     {
+        $this->authorize('resource', $survey);
+
         $group->update([
             'slug' => $request->slug,
             'title' => $request->title,
@@ -108,6 +125,8 @@ class GroupController extends Controller
      */
     public function destroy(Survey $survey, Group $group)
     {
+        $this->authorize('resource', $survey);
+
         $group->delete();
 
         return redirect()->route('surveys.groups.index', [$survey->id]);

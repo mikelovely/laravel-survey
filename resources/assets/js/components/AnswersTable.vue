@@ -52,10 +52,7 @@
             }
         },
         props: {
-            surveyId: null,
-            groupId: null,
             questionId: null,
-
             indexAnswerRoute: null,
             storeAnswerRoute: null,
         },
@@ -103,7 +100,7 @@
 
                 this.items = newItems;
 
-                this.$http.delete('/admins/surveys/' + this.surveyId + '/groups/' + this.groupId + '/questions/' + this.questionId + '/answers/' + item.id);
+                this.$http.delete('/admins/questions/' + this.questionId + '/answers/' + item.id);
             }
         },
         ready() {
