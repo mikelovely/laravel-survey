@@ -23,7 +23,9 @@ class GroupController extends Controller
      */
     public function index(Survey $survey)
     {
-        $groups = $survey->groups;
+        $this->authorize('index', Group::class);
+
+        $groups = Group::with(['survey'])->fromSurvey($survey)->latestFirst()->get();
 
         return view('admins.groups.index')
             ->with('survey', $survey)
@@ -37,7 +39,7 @@ class GroupController extends Controller
      */
     public function create(Survey $survey)
     {
-        $this->authorize('resource', $survey);
+        $this->authorize('create', Group::class);
 
         return view('admins.groups.create')
             ->with('survey', $survey)
@@ -52,7 +54,7 @@ class GroupController extends Controller
      */
     public function store(GroupForm $request, Survey $survey)
     {
-        $this->authorize('resource', $survey);
+        $this->authorize('create', Group::class);
 
         $survey->groups()->create([
             'slug' => $request->slug,
@@ -72,7 +74,7 @@ class GroupController extends Controller
      */
     public function show(Survey $survey, Group $group)
     {
-        $this->authorize('resource', $survey);
+        $this->authorize('show', $group);
 
         $group = $survey->groups()->where('groups.id', $group->id)->firstOrFail();
         
@@ -89,7 +91,7 @@ class GroupController extends Controller
      */
     public function edit(Survey $survey, Group $group)
     {
-        $this->authorize('resource', $survey);
+        $this->authorize('edit', $group);
 
         return view('admins.groups.edit')
             ->with('survey', $survey)
@@ -105,7 +107,7 @@ class GroupController extends Controller
      */
     public function update(GroupForm $request, Survey $survey, Group $group)
     {
-        $this->authorize('resource', $survey);
+        $this->authorize('edit', $group);
 
         $group->update([
             'slug' => $request->slug,
@@ -125,7 +127,7 @@ class GroupController extends Controller
      */
     public function destroy(Survey $survey, Group $group)
     {
-        $this->authorize('resource', $survey);
+        $this->authorize('delete', $group);
 
         $group->delete();
 
