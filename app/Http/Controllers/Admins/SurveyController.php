@@ -31,7 +31,7 @@ class SurveyController extends Controller
      */
     public function create()
     {
-        $this->authorize('resource', $survey);
+        $this->authorize('create', Survey::class);
 
         return view('admins.surveys.create')
             ->with('survey', new Survey);
@@ -45,7 +45,7 @@ class SurveyController extends Controller
      */
     public function store(SurveyForm $request)
     {
-        $this->authorize('resource', $survey);
+        $this->authorize('create', Survey::class);
 
         Survey::create([
             'slug' => $request->slug,
@@ -73,7 +73,7 @@ class SurveyController extends Controller
      */
     public function show(Survey $survey)
     {
-        $this->authorize('resource', $survey);
+        $this->authorize('show', $survey);
 
         return view('admins.surveys.show')
             ->with('groups', $survey->groups)
@@ -88,7 +88,7 @@ class SurveyController extends Controller
      */
     public function edit(Survey $survey)
     {
-        $this->authorize('resource', $survey);
+        $this->authorize('edit', $survey);
 
         return view('admins.surveys.edit')
             ->with('survey', $survey);
@@ -103,7 +103,7 @@ class SurveyController extends Controller
      */
     public function update(SurveyForm $request, Survey $survey)
     {
-        $this->authorize('resource', $survey);
+        $this->authorize('edit', $survey);
 
         $survey->update([
             'slug' => $request->slug,
@@ -131,7 +131,7 @@ class SurveyController extends Controller
      */
     public function destroy(Survey $survey)
     {
-        $this->authorize('resource', $survey);
+        $this->authorize('delete', $survey);
 
         $survey->delete();
 

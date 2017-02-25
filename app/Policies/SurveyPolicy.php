@@ -17,10 +17,41 @@ class SurveyPolicy
      */
     public function __construct()
     {
-        
+
     }
 
-    public function resource(User $user, Survey $survey)
+    public function create(User $user)
+    {
+        // if user has creating surveys permission
+        return true;
+
+        // TODO
+        // else return false
+    }
+
+    public function show(User $user, Survey $survey)
+    {
+        foreach ($survey->users()->get() as $survey_user) {
+            if ($user->id === $survey_user->id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function edit(User $user, Survey $survey)
+    {
+        foreach ($survey->users()->get() as $survey_user) {
+            if ($user->id === $survey_user->id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function delete(User $user, Survey $survey)
     {
         foreach ($survey->users()->get() as $survey_user) {
             if ($user->id === $survey_user->id) {
