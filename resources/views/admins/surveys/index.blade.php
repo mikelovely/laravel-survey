@@ -4,7 +4,9 @@
 	<div class="container">
 		<div class="row">
 		    <div class="col-md-12">
-		  		<a class="btn btn-info" href="{{ route('surveys.create') }}">Create new survey</a>
+		    	@can('create surveys')
+		    		<a class="btn btn-info" href="{{ route('surveys.create') }}">Create new survey</a>
+		    	@endcan
 		  	</div>
 		</div>
 		<hr>

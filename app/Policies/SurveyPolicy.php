@@ -20,15 +20,6 @@ class SurveyPolicy
 
     }
 
-    public function create(User $user)
-    {
-        // if user has creating surveys permission
-        return true;
-
-        // TODO
-        // else return false
-    }
-
     public function show(User $user, Survey $survey)
     {
         foreach ($survey->users()->get() as $survey_user) {
@@ -52,6 +43,42 @@ class SurveyPolicy
     }
 
     public function delete(User $user, Survey $survey)
+    {
+        foreach ($survey->users()->get() as $survey_user) {
+            if ($user->id === $survey_user->id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Determines if the User has permission to view all Groups in a Survey
+     *
+     * @param  User $user
+     * @param  Survey $survey
+     * @return boolean
+     */
+    public function viewGroups(User $user, Survey $survey)
+    {
+        foreach ($survey->users()->get() as $survey_user) {
+            if ($user->id === $survey_user->id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Determines if the User has permission to create a new Group for a Survey
+     *
+     * @param  User $user
+     * @param  Survey $survey
+     * @return boolean
+     */
+    public function createGroup(User $user, Survey $survey)
     {
         foreach ($survey->users()->get() as $survey_user) {
             if ($user->id === $survey_user->id) {

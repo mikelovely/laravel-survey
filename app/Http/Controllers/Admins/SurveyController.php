@@ -11,6 +11,12 @@ use Carbon\Carbon;
 
 class SurveyController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:admin,view surveys')->only('index');
+        $this->middleware('role:admin,create surveys')->only('create, store');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -31,8 +37,6 @@ class SurveyController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Survey::class);
-
         return view('admins.surveys.create')
             ->with('survey', new Survey);
     }
@@ -45,8 +49,6 @@ class SurveyController extends Controller
      */
     public function store(SurveyForm $request)
     {
-        $this->authorize('create', Survey::class);
-
         Survey::create([
             'slug' => $request->slug,
             'title' => $request->title,

@@ -23,7 +23,7 @@ class GroupController extends Controller
      */
     public function index(Survey $survey)
     {
-        $this->authorize('index', Group::class);
+        $this->authorize('viewGroups', $survey);
 
         $groups = Group::with(['survey'])->fromSurvey($survey)->latestFirst()->get();
 
@@ -39,7 +39,7 @@ class GroupController extends Controller
      */
     public function create(Survey $survey)
     {
-        $this->authorize('create', Group::class);
+        $this->authorize('createGroup', $survey);
 
         return view('admins.groups.create')
             ->with('survey', $survey)
@@ -54,7 +54,7 @@ class GroupController extends Controller
      */
     public function store(GroupForm $request, Survey $survey)
     {
-        $this->authorize('create', Group::class);
+        $this->authorize('createGroup', $survey);
 
         $survey->groups()->create([
             'slug' => $request->slug,

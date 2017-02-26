@@ -20,24 +20,6 @@ class GroupPolicy
         //
     }
 
-    public function index(User $user)
-    {
-        // if user has can view all group in this survey.
-        return true;
-
-        // TODO
-        // else return false
-    }
-
-    public function create(User $user)
-    {
-        // if user has can edit this group.
-        return true;
-
-        // TODO
-        // else return false
-    }
-
     public function show(User $user, Group $group)
     {
         $survey = $group->survey()->first();

@@ -28,4 +28,9 @@ class Group extends Model
     {
         return $this->hasMany('App\Models\Question')->whereNull('parent_question_id');
     }
+
+    public function scopeFromSurvey($query, Survey $survey)
+    {
+        return $query->where('survey_id', $survey->id);
+    }
 }

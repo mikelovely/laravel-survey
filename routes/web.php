@@ -19,9 +19,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::group(['prefix' => 'admins', 'middleware' => ['web', 'auth']], function () {
-    Route::resource('questions.answers', 'Admins\AnswerController');
-    Route::resource('groups.questions', 'Admins\QuestionController');
+// role can either be an admin or a manager
+Route::group(['prefix' => 'admins', 'middleware' => ['web', 'auth', 'role:admin']], function () {
+    Route::resource('surveys.groups.questions.answers', 'Admins\AnswerController');
+    Route::resource('surveys.groups.questions', 'Admins\QuestionController');
     Route::resource('surveys.groups', 'Admins\GroupController');
     Route::resource('surveys', 'Admins\SurveyController');
 });
