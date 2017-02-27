@@ -39,7 +39,7 @@ class QuestionController extends Controller
             'mandatory' => $request->has('mandatory'),
         ]);
 
-        return redirect()->route('groups.questions.index', [$group->id]);
+        return back();
     }
 
     /**
@@ -89,7 +89,7 @@ class QuestionController extends Controller
             'mandatory' => $request->has('mandatory'),
         ]);
 
-        return redirect()->back();
+        return back();
     }
 
     /**
@@ -102,6 +102,9 @@ class QuestionController extends Controller
     {
         $question->delete();
 
-        return redirect()->route('groups.questions.index', [$group->id]);
+        return redirect()->route('admin.surveys.groups.show', [
+            $survey->id,
+            $group->id,
+        ]);
     }
 }

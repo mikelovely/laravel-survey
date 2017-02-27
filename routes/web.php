@@ -22,13 +22,18 @@ Route::get('/home', 'HomeController@index');
 Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth', 'role:admin']], function () {
     Route::resource('surveys.groups.questions.answers', 'Admin\AnswerController', [
         'names' => [
-            'show' => 'admin.surveys.groups.questions.answers.show',
+            'index' => 'admin.surveys.groups.questions.answers.index',
+            'store' => 'admin.surveys.groups.questions.answers.store',
             'destroy' => 'admin.surveys.groups.questions.answers.destroy',
         ],
     ]);
     Route::resource('surveys.groups.questions', 'Admin\QuestionController', [
         'names' => [
             'show' => 'admin.surveys.groups.questions.show',
+            'edit' => 'admin.surveys.groups.questions.edit',
+            'update' => 'admin.surveys.groups.questions.update',
+            'create' => 'admin.surveys.groups.questions.create',
+            'store' => 'admin.surveys.groups.questions.store',
             'destroy' => 'admin.surveys.groups.questions.destroy',
         ],
         'except' => [
@@ -38,6 +43,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth', 'role:admin']
     Route::resource('surveys.groups', 'Admin\GroupController', [
         'names' => [
             'show' => 'admin.surveys.groups.show',
+            'edit' => 'admin.surveys.groups.edit',
+            'update' => 'admin.surveys.groups.update',
+            'create' => 'admin.surveys.groups.create',
+            'store' => 'admin.surveys.groups.store',
             'destroy' => 'admin.surveys.groups.destroy',
         ],
         'except' => [
@@ -46,7 +55,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth', 'role:admin']
     ]);
     Route::resource('surveys', 'Admin\SurveyController', [
         'names' => [
+            'index' => 'admin.surveys.index',
             'show' => 'admin.surveys.show',
+            'edit' => 'admin.surveys.edit',
+            'update' => 'admin.surveys.update',
+            'create' => 'admin.surveys.create',
+            'store' => 'admin.surveys.store',
             'destroy' => 'admin.surveys.destroy',
         ],
     ]);

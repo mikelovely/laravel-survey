@@ -36,7 +36,7 @@ class GroupController extends Controller
             'order' => $request->order,
         ]);
 
-        return redirect()->route('surveys.groups.index', [$survey->id]);
+        return back();
     }
 
     /**
@@ -49,7 +49,8 @@ class GroupController extends Controller
     {
         return view('admin.groups.show')
             ->with('survey', $survey)
-            ->with('group', $group);
+            ->with('group', $group)
+            ->with('questions', $group->questions);
     }
 
     /**
@@ -81,7 +82,7 @@ class GroupController extends Controller
             'order' => $request->order,
         ]);
 
-        return redirect()->back();
+        return back();
     }
 
     /**
@@ -94,6 +95,8 @@ class GroupController extends Controller
     {
         $group->delete();
 
-        return redirect()->route('surveys.groups.index', [$survey->id]);
+        return redirect()->route('admin.surveys.index', [
+            $survey->id,
+        ]);
     }
 }

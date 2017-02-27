@@ -36,32 +36,6 @@
             </div>
         </div>
         <hr>
-        <div class="row">
-            <div class="col-md-12">
-                @foreach ($group->questions as $question)
-                    <div class="panel panel-default">
-                        <div class="panel-heading clearfix">
-                            <a class="btn btn-small btn-success" href="{{ route('admin.surveys.groups.questions.show', [$survey->id, $group->id, $question->id]) }}">Show</a>
-                            @include('components.forms.delete_button', [
-                                'route' => 'admin.surveys.groups.questions.destroy',
-                                'params' => [
-                                    $survey->id,
-                                    $group->id,
-                                    $question->id,
-                                ],
-                            ])
-                        </div>
-                        <div class="panel-body">
-                            <h1>{{ $question->title }}</h1>
-                            <p>{{ $question->description }}</p>
-                            <p>{{ $question->type }}</p>
-                        </div>
-                        <div class="panel-footer">
-                            <span class="label label-success">Order: {{ $question->order }}</span>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
+        @include('admin.questions._list')
     </div>
 @endsection

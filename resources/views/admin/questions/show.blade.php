@@ -26,7 +26,11 @@
                         <p>{{ $question->type }}</p>
 
                         @if ($question->type == "array")
-                            <a class="btn btn-small btn-info" href="{{ route('questions.answers.index', [$question->id]) }}">Answer options</a>
+                            <a class="btn btn-small btn-info" href="{{ route('admin.surveys.groups.questions.answers.index', [
+                                $survey->id,
+                                $group->id,
+                                $question->id,
+                            ]) }}">Answer options</a>
                         @endif
                     </div>
                     <div class="panel-footer">

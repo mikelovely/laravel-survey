@@ -110,7 +110,7 @@ class SurveyController extends Controller
             'expires_at' => Carbon::createFromFormat('d-m-Y', $request->expires_at),
         ]);
 
-        return redirect()->back();
+        return back();
     }
 
     /**
@@ -123,6 +123,6 @@ class SurveyController extends Controller
     {
         $survey->delete();
 
-        return redirect()->route('surveys.index');
+        return redirect()->route('admin.surveys.index');
     }
 }
