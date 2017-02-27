@@ -43,7 +43,7 @@ class SurveyController extends Controller
      */
     public function store(SurveyForm $request)
     {
-        Survey::create([
+        $request->user()->surveys()->create([
             'slug' => $request->slug,
             'title' => $request->title,
             'description' => $request->description,
