@@ -47,8 +47,6 @@ class GroupController extends Controller
      */
     public function show(Survey $survey, Group $group)
     {
-        $group = Group::with(['survey'])->fromSurvey($survey)->latestFirst()->firstOrFail();
-
         return view('admins.groups.show')
             ->with('survey', $survey)
             ->with('group', $group);

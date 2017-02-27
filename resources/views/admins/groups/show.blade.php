@@ -30,5 +30,10 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            @foreach ($group->questions as $question)
+                <p>{{ $question->title }}</p>
+            @endforeach
+        </div>
     </div>
 @endsection
