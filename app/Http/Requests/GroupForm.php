@@ -13,7 +13,7 @@ class GroupForm extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return ($this->user()->hasRole('admin') || $this->user()->hasRole('manager'));
     }
 
     /**

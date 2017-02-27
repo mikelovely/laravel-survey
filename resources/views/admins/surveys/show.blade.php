@@ -53,7 +53,6 @@
 						    <h1>{{ $group->title }}</h1>
 							<p>{{ $group->description }}</p>
 							<p>{{ $group->slug }}</p>
-							<a class="btn btn-small btn-info" href="{{ route('groups.questions.index', [$group->id]) }}">Manage</a>
 					  	</div>
 					  	<div class="panel-footer">
 					  		<span class="label label-success">Order: {{ $group->order }}</span>

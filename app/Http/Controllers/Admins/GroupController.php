@@ -9,27 +9,6 @@ use App\Models\Survey;
 
 class GroupController extends Controller
 {
-    public function __construct()
-    {
-        // dd("est");
-        // to middleware or not to middleware?
-        // $this->middleware('group');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Survey $survey)
-    {
-        $groups = $survey->groups;
-
-        return view('admins.groups.index')
-            ->with('survey', $survey)
-            ->with('groups', $groups);
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -37,8 +16,6 @@ class GroupController extends Controller
      */
     public function create(Survey $survey)
     {
-        $this->authorize('resource', $survey);
-
         return view('admins.groups.create')
             ->with('survey', $survey)
             ->with('group', new Group);
@@ -52,8 +29,6 @@ class GroupController extends Controller
      */
     public function store(GroupForm $request, Survey $survey)
     {
-        $this->authorize('resource', $survey);
-
         $survey->groups()->create([
             'slug' => $request->slug,
             'title' => $request->title,
@@ -72,10 +47,6 @@ class GroupController extends Controller
      */
     public function show(Survey $survey, Group $group)
     {
-        $this->authorize('resource', $survey);
-
-        $group = $survey->groups()->where('groups.id', $group->id)->firstOrFail();
-        
         return view('admins.groups.show')
             ->with('survey', $survey)
             ->with('group', $group);
@@ -89,8 +60,6 @@ class GroupController extends Controller
      */
     public function edit(Survey $survey, Group $group)
     {
-        $this->authorize('resource', $survey);
-
         return view('admins.groups.edit')
             ->with('survey', $survey)
             ->with('group', $group);
@@ -105,8 +74,6 @@ class GroupController extends Controller
      */
     public function update(GroupForm $request, Survey $survey, Group $group)
     {
-        $this->authorize('resource', $survey);
-
         $group->update([
             'slug' => $request->slug,
             'title' => $request->title,
@@ -125,8 +92,6 @@ class GroupController extends Controller
      */
     public function destroy(Survey $survey, Group $group)
     {
-        $this->authorize('resource', $survey);
-
         $group->delete();
 
         return redirect()->route('surveys.groups.index', [$survey->id]);

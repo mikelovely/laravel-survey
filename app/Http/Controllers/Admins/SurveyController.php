@@ -16,9 +16,9 @@ class SurveyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $surveys = $request->user()->surveys()->get();
+        $surveys = Survey::all();
 
         return view('admins.surveys.index')
             ->with('surveys', $surveys);
@@ -31,8 +31,6 @@ class SurveyController extends Controller
      */
     public function create()
     {
-        $this->authorize('resource', $survey);
-
         return view('admins.surveys.create')
             ->with('survey', new Survey);
     }
@@ -45,8 +43,6 @@ class SurveyController extends Controller
      */
     public function store(SurveyForm $request)
     {
-        $this->authorize('resource', $survey);
-
         Survey::create([
             'slug' => $request->slug,
             'title' => $request->title,
@@ -73,8 +69,6 @@ class SurveyController extends Controller
      */
     public function show(Survey $survey)
     {
-        $this->authorize('resource', $survey);
-
         return view('admins.surveys.show')
             ->with('groups', $survey->groups)
             ->with('survey', $survey);
@@ -88,8 +82,6 @@ class SurveyController extends Controller
      */
     public function edit(Survey $survey)
     {
-        $this->authorize('resource', $survey);
-
         return view('admins.surveys.edit')
             ->with('survey', $survey);
     }
@@ -103,8 +95,6 @@ class SurveyController extends Controller
      */
     public function update(SurveyForm $request, Survey $survey)
     {
-        $this->authorize('resource', $survey);
-
         $survey->update([
             'slug' => $request->slug,
             'title' => $request->title,
@@ -131,8 +121,6 @@ class SurveyController extends Controller
      */
     public function destroy(Survey $survey)
     {
-        $this->authorize('resource', $survey);
-
         $survey->delete();
 
         return redirect()->route('surveys.index');
