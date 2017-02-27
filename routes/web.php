@@ -26,6 +26,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth', 'role:admin']
             'store' => 'admin.surveys.groups.questions.answers.store',
             'destroy' => 'admin.surveys.groups.questions.answers.destroy',
         ],
+        'except' => [
+            'show',
+            'edit',
+            'update',
+            'create',
+        ],
     ]);
     Route::resource('surveys.groups.questions', 'Admin\QuestionController', [
         'names' => [

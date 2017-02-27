@@ -95,7 +95,7 @@ class GroupController extends Controller
     {
         $group->delete();
 
-        return redirect()->route('admin.surveys.index', [
+        return redirect()->route('admin.surveys.show', [
             $survey->id,
         ]);
     }
