@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admins;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Answer;
@@ -25,7 +25,7 @@ class AnswerController extends Controller
             ], 200);
         }
 
-        return view('admins.answers.index')
+        return view('admin.answers.index')
             ->with('question', $question)
             ->with('answers', $answers);
     }

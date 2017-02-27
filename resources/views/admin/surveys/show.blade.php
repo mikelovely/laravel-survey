@@ -12,9 +12,9 @@
 		    <div class="col-md-12">
 		    	<div class="panel panel-default">
 				  	<div class="panel-heading clearfix">
-				    	<a class="btn btn-info" href="{{ route('surveys.edit', [$survey->id]) }}">Edit</a>
+				    	<a class="btn btn-info" href="{{ route('admin.surveys.edit', [$survey->id]) }}">Edit</a>
 						@include('components.forms.delete_button', [
-					        'route' => 'surveys.destroy',
+					        'route' => 'admin.surveys.destroy',
 					        'params' => [
 					        	$survey->id,
 					        ],
@@ -39,10 +39,10 @@
 				@foreach ($groups as $group)
 					<div class="panel panel-default">
 					  	<div class="panel-heading clearfix">
-					        <a class="btn btn-small btn-success" href="{{ route('surveys.groups.show', [$survey->id, $group->id]) }}">Show</a>
-							<a class="btn btn-small btn-info" href="{{ route('surveys.groups.edit', [$survey->id, $group->id]) }}">Edit</a>
+					        <a class="btn btn-small btn-success" href="{{ route('admin.surveys.groups.show', [$survey->id, $group->id]) }}">Show</a>
+							<a class="btn btn-small btn-info" href="{{ route('admin.surveys.groups.edit', [$survey->id, $group->id]) }}">Edit</a>
 							@include('components.forms.delete_button', [
-						        'route' => 'surveys.groups.destroy',
+						        'route' => 'admin.surveys.groups.destroy',
 						        'params' => [
 						        	$survey->id,
 						        	$group->id,

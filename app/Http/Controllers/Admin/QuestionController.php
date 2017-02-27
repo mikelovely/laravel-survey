@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admins;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\QuestionForm;
@@ -17,7 +17,7 @@ class QuestionController extends Controller
      */
     public function create(Survey $survey, Group $group)
     {
-        return view('admins.questions.create')
+        return view('admin.questions.create')
             ->with('survey', $group->survey()->firstOrFail())
             ->with('group', $group)
             ->with('question', new Question);
@@ -52,7 +52,7 @@ class QuestionController extends Controller
     {
         $question = $group->questions()->where('questions.id', $question->id)->firstOrFail();
 
-        return view('admins.questions.show')
+        return view('admin.questions.show')
             ->with('survey', $group->survey()->firstOrFail())
             ->with('group', $group)
             ->with('question', $question);
@@ -66,7 +66,7 @@ class QuestionController extends Controller
      */
     public function edit(Survey $survey, Group $group, Question $question)
     {
-        return view('admins.questions.edit')
+        return view('admin.questions.edit')
             ->with('survey', $group->survey()->firstOrFail())
             ->with('group', $group)
             ->with('question', $question);

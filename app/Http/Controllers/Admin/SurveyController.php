@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admins;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 
@@ -20,7 +20,7 @@ class SurveyController extends Controller
     {
         $surveys = Survey::all();
 
-        return view('admins.surveys.index')
+        return view('admin.surveys.index')
             ->with('surveys', $surveys);
     }
 
@@ -31,7 +31,7 @@ class SurveyController extends Controller
      */
     public function create()
     {
-        return view('admins.surveys.create')
+        return view('admin.surveys.create')
             ->with('survey', new Survey);
     }
 
@@ -69,7 +69,7 @@ class SurveyController extends Controller
      */
     public function show(Survey $survey)
     {
-        return view('admins.surveys.show')
+        return view('admin.surveys.show')
             ->with('groups', $survey->groups)
             ->with('survey', $survey);
     }
@@ -82,7 +82,7 @@ class SurveyController extends Controller
      */
     public function edit(Survey $survey)
     {
-        return view('admins.surveys.edit')
+        return view('admin.surveys.edit')
             ->with('survey', $survey);
     }
 

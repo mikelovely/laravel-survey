@@ -5,7 +5,7 @@
 		<div class="row">
 		    <div class="col-md-12">
 		    	@can('create surveys')
-		    		<a class="btn btn-info" href="{{ route('surveys.create') }}">Create new survey</a>
+		    		<a class="btn btn-info" href="{{ route('admin.surveys.create') }}">Create new survey</a>
 		    	@endcan
 		  	</div>
 		</div>
@@ -15,10 +15,10 @@
 		    	@foreach ($surveys as $survey)
 					<div class="panel panel-default">
 					  	<div class="panel-heading clearfix">
-					        <a class="btn btn-info" href="{{ route('surveys.show', [$survey->id]) }}">Show</a>
-					    	<a class="btn btn-info" href="{{ route('surveys.edit', [$survey->id]) }}">Edit</a>
+					        <a class="btn btn-info" href="{{ route('admin.surveys.show', [$survey->id]) }}">Show</a>
+					    	<a class="btn btn-info" href="{{ route('admin.surveys.edit', [$survey->id]) }}">Edit</a>
                             @include('components.forms.delete_button', [
-						        'route' => 'surveys.destroy',
+						        'route' => 'admin.surveys.destroy',
 						        'params' => [
 						        	$survey->id,
 						        ],

@@ -19,11 +19,37 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::group(['prefix' => 'admins', 'middleware' => ['web', 'auth', 'role:admin']], function () {
-    Route::resource('surveys.groups.questions.answers', 'Admins\AnswerController');
-    Route::resource('surveys.groups.questions', 'Admins\QuestionController', ['except' => ['index']]);
-    Route::resource('surveys.groups', 'Admins\GroupController', ['except' => ['index']]);
-    Route::resource('surveys', 'Admins\SurveyController');
+Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth', 'role:admin']], function () {
+    Route::resource('surveys.groups.questions.answers', 'Admin\AnswerController', [
+        'names' => [
+            'show' => 'admin.surveys.groups.questions.answers.show',
+            'destroy' => 'admin.surveys.groups.questions.answers.destroy',
+        ],
+    ]);
+    Route::resource('surveys.groups.questions', 'Admin\QuestionController', [
+        'names' => [
+            'show' => 'admin.surveys.groups.questions.show',
+            'destroy' => 'admin.surveys.groups.questions.destroy',
+        ],
+        'except' => [
+            'index',
+        ],
+    ]);
+    Route::resource('surveys.groups', 'Admin\GroupController', [
+        'names' => [
+            'show' => 'admin.surveys.groups.show',
+            'destroy' => 'admin.surveys.groups.destroy',
+        ],
+        'except' => [
+            'index',
+        ],
+    ]);
+    Route::resource('surveys', 'Admin\SurveyController', [
+        'names' => [
+            'show' => 'admin.surveys.show',
+            'destroy' => 'admin.surveys.destroy',
+        ],
+    ]);
 });
 
 Route::group(['middleware' => ['web', 'auth', 'role:manager']], function () {

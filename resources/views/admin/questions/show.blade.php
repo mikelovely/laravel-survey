@@ -13,7 +13,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading clearfix">
                         @include('components.forms.delete_button', [
-                            'route' => 'surveys.groups.questions.destroy',
+                            'route' => 'admin.surveys.groups.questions.destroy',
                             'params' => [
                                 $survey->id,
                                 $group->id,
