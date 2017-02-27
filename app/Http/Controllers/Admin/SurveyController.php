@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admins;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 
@@ -20,7 +20,7 @@ class SurveyController extends Controller
     {
         $surveys = Survey::all();
 
-        return view('admins.surveys.index')
+        return view('admin.surveys.index')
             ->with('surveys', $surveys);
     }
 
@@ -31,7 +31,7 @@ class SurveyController extends Controller
      */
     public function create()
     {
-        return view('admins.surveys.create')
+        return view('admin.surveys.create')
             ->with('survey', new Survey);
     }
 
@@ -43,7 +43,7 @@ class SurveyController extends Controller
      */
     public function store(SurveyForm $request)
     {
-        Survey::create([
+        $request->user()->surveys()->create([
             'slug' => $request->slug,
             'title' => $request->title,
             'description' => $request->description,
@@ -58,7 +58,7 @@ class SurveyController extends Controller
             'expires_at' => Carbon::createFromFormat('d-m-Y', $request->expires_at),
         ]);
 
-        return redirect()->route('surveys.index');
+        return redirect()->route('admin.surveys.index');
     }
 
     /**
@@ -69,7 +69,7 @@ class SurveyController extends Controller
      */
     public function show(Survey $survey)
     {
-        return view('admins.surveys.show')
+        return view('admin.surveys.show')
             ->with('groups', $survey->groups)
             ->with('survey', $survey);
     }
@@ -82,7 +82,7 @@ class SurveyController extends Controller
      */
     public function edit(Survey $survey)
     {
-        return view('admins.surveys.edit')
+        return view('admin.surveys.edit')
             ->with('survey', $survey);
     }
 
@@ -110,7 +110,7 @@ class SurveyController extends Controller
             'expires_at' => Carbon::createFromFormat('d-m-Y', $request->expires_at),
         ]);
 
-        return redirect()->back();
+        return back();
     }
 
     /**
@@ -123,6 +123,6 @@ class SurveyController extends Controller
     {
         $survey->delete();
 
-        return redirect()->route('surveys.index');
+        return redirect()->route('admin.surveys.index');
     }
 }

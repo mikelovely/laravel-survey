@@ -54,7 +54,8 @@
                         <li><a href="{{ url('/register') }}">Register</a></li>
                     @else
                         @role('admin')
-                            <li><a href="{{ url('/admins') }}">Admin</a></li>
+                            <li><a href="{{ url('/admin') }}">Admin Panel</a></li>
+                            <li><a href="{{ route('admin.surveys.index') }}">Surveys Home</a></li>
                         @endrole
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

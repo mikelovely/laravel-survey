@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admins;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Answer;
+use App\Models\Survey;
+use App\Models\Group;
 use App\Models\Question;
+use App\Models\Answer;
 use Illuminate\Http\Request;
 use Request as RequestFacade;
 
@@ -15,7 +17,7 @@ class AnswerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Question $question)
+    public function index(Survey $survey, Group $group, Question $question)
     {
         $answers = $question->answers;
 
@@ -25,7 +27,9 @@ class AnswerController extends Controller
             ], 200);
         }
 
-        return view('admins.answers.index')
+        return view('admin.answers.index')
+            ->with('survey', $survey)
+            ->with('group', $group)
             ->with('question', $question)
             ->with('answers', $answers);
     }
@@ -36,7 +40,7 @@ class AnswerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Question $question, Request $request)
+    public function store(Survey $survey, Group $group, Question $question, Request $request)
     {
         $question->answers()->create([
             'value'  => $request->value,
@@ -55,7 +59,7 @@ class AnswerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Question $question, Answer $answer)
+    public function destroy(Survey $survey, Group $group, Question $question, Answer $answer)
     {
         $answer->delete();
 

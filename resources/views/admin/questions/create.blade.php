@@ -4,11 +4,15 @@
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Create a new survey</h3>
+                <h3 class="panel-title">Create a new question</h3>
             </div>
             <div class="panel-body">
-                @include('admins.surveys.form', [
-                    'url' => route('surveys.store', [$survey->id]),
+                @include('admin.questions.form', [
+                    'url' => route('admin.surveys.groups.questions.store', [
+                        $survey->id,
+                        $group->id,
+                        $question->id,
+                    ]),
                     'method' => 'post',
                     'button' => 'Create',
                 ])

@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>{{ $question->title }}</h1>
+                <h1>{{ $group->title }}</h1>
             </div>
         </div>
         <hr>
@@ -13,28 +13,29 @@
                 <div class="panel panel-default">
                     <div class="panel-heading clearfix">
                         @include('components.forms.delete_button', [
-                            'route' => 'surveys.groups.questions.destroy',
+                            'route' => 'admin.surveys.groups.destroy',
                             'params' => [
                                 $survey->id,
                                 $group->id,
-                                $question->id,
                             ],
                         ])
                     </div>
                     <div class="panel-body">
-                        <p>{{ $question->description }}</p>
-                        <p>{{ $question->type }}</p>
-
-                        @if ($question->type == "array")
-                            <a class="btn btn-small btn-info" href="{{ route('questions.answers.index', [$question->id]) }}">Answer options</a>
-                        @endif
+                        <p>{{ $group->description }}</p>
+                        <p>{{ $group->slug }}</p>
                     </div>
                     <div class="panel-footer">
-                        <span class="label label-success">Order: {{ $question->order }}</span>
-                        <span class="label label-success">Mandatory: {{ $question->mandatory }}</span>
+                        <span class="label label-success">Order: {{ $group->order }}</span>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Questions for this group</h2>
+            </div>
+        </div>
+        <hr>
+        @include('admin.questions._list')
     </div>
 @endsection
