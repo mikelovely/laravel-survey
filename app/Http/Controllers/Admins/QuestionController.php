@@ -4,27 +4,18 @@ namespace App\Http\Controllers\Admins;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\QuestionForm;
+use App\Models\Survey;
 use App\Models\Group;
 use App\Models\Question;
 
 class QuestionController extends Controller
 {
-    public function index(Group $group)
-    {
-        $questions = $group->questions;
-
-        return view('admins.questions.index')
-            ->with('survey', $group->survey()->firstOrFail())
-            ->with('group', $group)
-            ->with('questions', $questions);
-    }
-
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Group $group)
+    public function create(Survey $survey, Group $group)
     {
         return view('admins.questions.create')
             ->with('survey', $group->survey()->firstOrFail())
@@ -38,7 +29,7 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Group $group, QuestionForm $request)
+    public function store(Survey $survey, Group $group, QuestionForm $request)
     {
         $group->questions()->create([
             'title' => $request->title,
@@ -57,7 +48,7 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Group $group, Question $question)
+    public function show(Survey $survey, Group $group, Question $question)
     {
         $question = $group->questions()->where('questions.id', $question->id)->firstOrFail();
 
@@ -73,7 +64,7 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Group $group, Question $question)
+    public function edit(Survey $survey, Group $group, Question $question)
     {
         return view('admins.questions.edit')
             ->with('survey', $group->survey()->firstOrFail())
@@ -88,7 +79,7 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Group $group, Question $question, QuestionForm $request)
+    public function update(Survey $survey, Group $group, Question $question, QuestionForm $request)
     {
         $question->update([
             'title' => $request->title,
@@ -107,7 +98,7 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Group $group, Question $question)
+    public function destroy(Survey $survey, Group $group, Question $question)
     {
         $question->delete();
 

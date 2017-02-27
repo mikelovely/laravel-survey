@@ -27,6 +27,13 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    // public function scopeSurveysList()
+    // {
+    //     return \App\Models\Survey::all();
+
+    //     return $this->surveys();
+    // }
+
     public function surveys()
     {
         return $this->belongsToMany('App\Models\Survey');

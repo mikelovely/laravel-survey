@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\Eloquent\{OrderableTrait, PivotOrderableTrait};
 
 class Survey extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, OrderableTrait;
 
     protected $fillable = [
         'slug',

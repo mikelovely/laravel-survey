@@ -13,8 +13,9 @@
                 <div class="panel panel-default">
                     <div class="panel-heading clearfix">
                         @include('components.forms.delete_button', [
-                            'route' => 'groups.questions.destroy',
+                            'route' => 'surveys.groups.questions.destroy',
                             'params' => [
+                                $survey->id,
                                 $group->id,
                                 $question->id,
                             ],
@@ -23,7 +24,7 @@
                     <div class="panel-body">
                         <p>{{ $question->description }}</p>
                         <p>{{ $question->type }}</p>
-                        
+
                         @if ($question->type == "array")
                             <a class="btn btn-small btn-info" href="{{ route('questions.answers.index', [$question->id]) }}">Answer options</a>
                         @endif
