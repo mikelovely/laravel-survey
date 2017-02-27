@@ -27,7 +27,6 @@
 					  	<div class="panel-body">
 						    <h1>{{ $survey->title }}</h1>
 					        <p>{{ $survey->description }}</p>
-					        <a class="btn btn-small btn-info" href="{{ route('surveys.groups.index', [$survey->id]) }}">Manage</a>
 					  	</div>
 					  	<div class="panel-footer">
 					  		@if ($survey->anonymized == true)
