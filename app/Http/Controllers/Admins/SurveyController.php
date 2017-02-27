@@ -11,20 +11,14 @@ use Carbon\Carbon;
 
 class SurveyController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('role:admin,view surveys')->only('index');
-        $this->middleware('role:admin,create surveys')->only('create, store');
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $surveys = $request->user()->surveys()->get();
+        $surveys = Survey::all();
 
         return view('admins.surveys.index')
             ->with('surveys', $surveys);
@@ -75,8 +69,6 @@ class SurveyController extends Controller
      */
     public function show(Survey $survey)
     {
-        $this->authorize('show', $survey);
-
         return view('admins.surveys.show')
             ->with('groups', $survey->groups)
             ->with('survey', $survey);
@@ -90,8 +82,6 @@ class SurveyController extends Controller
      */
     public function edit(Survey $survey)
     {
-        $this->authorize('edit', $survey);
-
         return view('admins.surveys.edit')
             ->with('survey', $survey);
     }
@@ -105,8 +95,6 @@ class SurveyController extends Controller
      */
     public function update(SurveyForm $request, Survey $survey)
     {
-        $this->authorize('edit', $survey);
-
         $survey->update([
             'slug' => $request->slug,
             'title' => $request->title,
@@ -133,8 +121,6 @@ class SurveyController extends Controller
      */
     public function destroy(Survey $survey)
     {
-        $this->authorize('delete', $survey);
-
         $survey->delete();
 
         return redirect()->route('surveys.index');
