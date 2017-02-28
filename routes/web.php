@@ -33,6 +33,19 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth', 'role:admin']
             'create',
         ],
     ]);
+    Route::resource('surveys.groups.questions.sub-questions', 'Admin\SubQuestionController', [
+        'names' => [
+            'index' => 'admin.surveys.groups.questions.sub-questions.index',
+            'store' => 'admin.surveys.groups.questions.sub-questions.store',
+            'destroy' => 'admin.surveys.groups.questions.sub-questions.destroy',
+        ],
+        'except' => [
+            'show',
+            'edit',
+            'update',
+            'create',
+        ],
+    ]);
     Route::resource('surveys.groups.questions', 'Admin\QuestionController', [
         'names' => [
             'show' => 'admin.surveys.groups.questions.show',

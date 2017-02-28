@@ -14,6 +14,7 @@ require('./bootstrap');
  */
 
 Vue.component('answers-table', require('./components/AnswersTable.vue'));
+Vue.component('sub-questions-table', require('./components/SubQuestionsTable.vue'));
 
 const app = new Vue({
     el: 'body'

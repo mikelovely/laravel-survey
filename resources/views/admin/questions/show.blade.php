@@ -32,6 +32,14 @@
                                 $question->id,
                             ]) }}">Answer options</a>
                         @endif
+
+                        @if ($question->type == "array")
+                            <a class="btn btn-small btn-info" href="{{ route('admin.surveys.groups.questions.sub-questions.index', [
+                                $survey->id,
+                                $group->id,
+                                $question->id,
+                            ]) }}">Sub questions</a>
+                        @endif
                     </div>
                     <div class="panel-footer">
                         <span class="label label-success">Order: {{ $question->order }}</span>
