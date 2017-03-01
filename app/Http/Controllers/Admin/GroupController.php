@@ -10,6 +10,18 @@ use App\Models\Survey;
 class GroupController extends Controller
 {
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Survey $survey)
+    {
+        return view('admin.groups.index')
+            ->with('survey', $survey)
+            ->with('groups', $survey->groups);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

@@ -57,9 +57,12 @@ class SubQuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Survey $survey, Group $group, Question $question, Question $subQuestion)
+    public function destroy(Survey $survey, Group $group, Question $question, $subQuestion)
     {
-        $subQuestion->delete();
+        // TODO - Consider making a model called SubQuestion
+        $sub = Question::findOrFail($subQuestion);
+
+        $sub->delete();
 
         return response(200);
     }

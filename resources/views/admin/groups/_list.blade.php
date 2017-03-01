@@ -1,41 +1,42 @@
-<div class="row">
-    <div class="col-md-12">
-        <a class="btn btn-info" href="{{ route('admin.surveys.groups.create', [
-            $survey->id,
-        ]) }}">Create new group</a>
-    </div>
-</div>
-<hr>
-<div class="row">
+<ul class="list-group">
     @foreach ($groups as $group)
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading clearfix">
-                    <a class="btn btn-small btn-success" href="{{ route('admin.surveys.groups.show', [
-                        $survey->id,
-                        $group->id,
-                    ]) }}">Show</a>
-                    <a class="btn btn-small btn-info" href="{{ route('admin.surveys.groups.edit', [
-                        $survey->id,
-                        $group->id,
-                    ]) }}">Edit</a>
-                    @include('components.forms.delete_button', [
-                        'route' => 'admin.surveys.groups.destroy',
-                        'params' => [
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2 class="list-group-item-heading h4">{{ $group->title }}</h2>
+                    <p class="list-group-item-text">{{ $group->description }}</p>
+
+                    @if ($group->questions->count() > 0)
+                        <span class="label label-info">{{ $group->questions->count() }} Questions</span>
+                    @else
+                        <span class="label label-danger">No groups yet</span>
+                    @endif
+                </div>
+                <div class="col-md-4">
+                    <div class="btn-group-padding" role="group">
+                        <a class="btn btn-sm btn-info" href="{{ route('admin.surveys.groups.edit', [
                             $survey->id,
                             $group->id,
-                        ],
-                    ])
-                </div>
-                <div class="panel-body">
-                    <h1>{{ $group->title }}</h1>
-                    <p>{{ $group->description }}</p>
-                    <p>{{ $group->slug }}</p>
-                </div>
-                <div class="panel-footer">
-                    <span class="label label-success">Order: {{ $group->order }}</span>
+                        ]) }}">Edit</a>
+                        <a class="btn btn-sm btn-info" href="{{ route('admin.surveys.groups.questions.index', [
+                            $survey->id,
+                            $group->id,
+                        ]) }}">Questions</a>
+                        <a class="btn btn-sm btn-info" href="{{ route('admin.surveys.groups.show', [
+                            $survey->id,
+                            $group->id,
+                        ]) }}">View</a>
+
+                        @include('components.forms.delete_button', [
+                            'route' => 'admin.surveys.groups.destroy',
+                            'params' => [
+                                $survey->id,
+                                $group->id,
+                            ],
+                        ])
+                    </div>
                 </div>
             </div>
-        </div>
+        </li>
     @endforeach
-</div>
+</ul>

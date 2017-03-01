@@ -7688,4 +7688,12 @@ button.close {
   }
 }
 
+.btn-group-padding {
+  padding-bottom: 1%;
+}
+
+.header-padding {
+  padding-bottom: 1%;
+}
+
 /*# sourceMappingURL=app.css.map */

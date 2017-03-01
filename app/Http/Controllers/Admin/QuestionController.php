@@ -11,6 +11,19 @@ use App\Models\Question;
 class QuestionController extends Controller
 {
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Survey $survey, Group $group)
+    {
+        return view('admin.questions.index')
+            ->with('survey', $survey)
+            ->with('group', $group)
+            ->with('questions', $group->questions);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

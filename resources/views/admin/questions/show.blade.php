@@ -4,6 +4,35 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                @include('components._navigation', [
+                    'data' => [
+                        0 => [
+                            'text' => 'Surveys',
+                            'url' => route('admin.surveys.index'),
+                        ],
+                        1 => [
+                            'text' => $survey->title,
+                            'url' => route('admin.surveys.show', [
+                                $survey->id,
+                            ]),
+                        ],
+                        2 => [
+                            'text' => $group->title,
+                            'url' => route('admin.surveys.groups.show', [
+                                $survey->id,
+                                $group->id,
+                            ]),
+                        ],
+                        3 => [
+                            'text' => $question->title,
+                            'url' => false,
+                        ],
+                    ],
+                ])
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <h1>{{ $question->title }}</h1>
             </div>
         </div>

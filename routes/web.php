@@ -48,6 +48,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth', 'role:admin']
     ]);
     Route::resource('surveys.groups.questions', 'Admin\QuestionController', [
         'names' => [
+            'index' => 'admin.surveys.groups.questions.index',
             'show' => 'admin.surveys.groups.questions.show',
             'edit' => 'admin.surveys.groups.questions.edit',
             'update' => 'admin.surveys.groups.questions.update',
@@ -55,21 +56,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth', 'role:admin']
             'store' => 'admin.surveys.groups.questions.store',
             'destroy' => 'admin.surveys.groups.questions.destroy',
         ],
-        'except' => [
-            'index',
-        ],
     ]);
     Route::resource('surveys.groups', 'Admin\GroupController', [
         'names' => [
+            'index' => 'admin.surveys.groups.index',
             'show' => 'admin.surveys.groups.show',
             'edit' => 'admin.surveys.groups.edit',
             'update' => 'admin.surveys.groups.update',
             'create' => 'admin.surveys.groups.create',
             'store' => 'admin.surveys.groups.store',
             'destroy' => 'admin.surveys.groups.destroy',
-        ],
-        'except' => [
-            'index',
         ],
     ]);
     Route::resource('surveys', 'Admin\SurveyController', [
