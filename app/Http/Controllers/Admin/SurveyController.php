@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SurveyForm;
 use App\Models\Survey;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class SurveyController extends Controller
 {
@@ -18,7 +19,11 @@ class SurveyController extends Controller
      */
     public function index()
     {
-        $surveys = Survey::all();
+        if (Auth::user()->isAdmin()) {
+            $surveys = Survey::all();
+        } else {
+            $surveys = Auth::user()->surveys;
+        }
 
         return view('admin.surveys.index')
             ->with('surveys', $surveys);

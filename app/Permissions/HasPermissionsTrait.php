@@ -52,6 +52,11 @@ trait HasPermissionsTrait
         return $this->hasPermissionThroughRole($permission) || $this->hasPermission($permission);
     }
 
+    public function isAdmin()
+    {
+        return $this->hasRole('admin');
+    }
+
     protected function hasPermissionThroughRole($permission)
     {
         foreach ($permission->roles as $role) {

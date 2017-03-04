@@ -62,7 +62,7 @@ class GroupController extends Controller
         return view('admin.groups.show')
             ->with('survey', $survey)
             ->with('group', $group)
-            ->with('questions', $group->questions);
+            ->with('questions', $group->questions->load(['answers']));
     }
 
     /**
