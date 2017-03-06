@@ -30,6 +30,6 @@ class User extends Authenticatable
 
     public function surveys()
     {
-        return $this->belongsToMany('App\Models\Survey');
+        return $this->belongsToMany('App\Models\Survey', 'users_surveys');
     }
 }

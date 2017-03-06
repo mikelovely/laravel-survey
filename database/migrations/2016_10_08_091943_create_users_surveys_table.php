@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSurveyUser extends Migration
+class CreateUsersSurveysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateSurveyUser extends Migration
      */
     public function up()
     {
-        Schema::create('survey_user', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('users_surveys', function (Blueprint $table) {
             $table->integer('survey_id')->unsigned();
             $table->integer('user_id')->unsigned();
-
             $table->foreign('survey_id')->references('id')->on('surveys');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->timestamps();
+
+            $table->primary(['user_id', 'survey_id']);
         });
     }
 
